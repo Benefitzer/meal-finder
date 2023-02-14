@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CategoryList from "./CategoryList";
 import CategoryDescription from "./CategoryDescription";
 import MealList from "./MealList";
+import Meal from "./Meal";
 import { useEffect, useState } from 'react';
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
     const [currentCategory, setCurrentCategory] = useState([]);
     let [categoryDesc] = useState([]);
     let [currentMeals, setCurrentMeals] = useState([]);
+    let [randomMeal, setRandomMeal] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:8000/categories')
@@ -21,6 +23,12 @@ function App() {
         fetch('http://localhost:8000/mealByName?name=' + "")
             .then(res => res.json().then(data => {
                 setCurrentMeals(data.meals)
+            }))
+
+        fetch('http://localhost:8000/randomMeal')
+            .then(res => res.json().then(data => {
+                console.log(data)
+                setRandomMeal(data.meals[0])
             }))
     }, []);
 
@@ -39,23 +47,28 @@ function App() {
 
         fetch('http://localhost:8000/mealByName?name=' + searchString)
             .then(res => res.json().then(data => {
-                if (data.meals != null) {
-                    console.log(data.meals)
-                    setCurrentMeals(data.meals)
-                } else {
-                    const meals = [];
-                    setCurrentMeals(meals)
-                }
+                setRandomMeal(data.meals[0])
             }))
 
         return currentMeals;
     }
 
-    // console.log(categories);
+    function nextRandomMeal(e) {
+        fetch('http://localhost:8000/randomMeal')
+            .then(res => res.json().then(data => {
+                console.log(data)
+                setRandomMeal(data.meals[0])
+            }))
+
+        return randomMeal;
+    }
 
     return (
         <div className="App">
             <h1>Meal-Finder</h1>
+            <h3>Meal Recommendation:</h3>
+            <input type="button" value="Next" onClick={(e) => nextRandomMeal(e)}></input>
+            <Meal meal={randomMeal} />
             <h3>Select a Category:</h3>
             <select value={currentCategory} onChange={(e) => handleChangeCategory(e)}
                 id={"selectCategory"}><CategoryList categories={categories} /></select>

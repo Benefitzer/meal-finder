@@ -37,7 +37,7 @@ app.get('/mealByName', (req, res) => {
     });
 });
 app.get('/randomMeal', (req, res) => {
-    getMealByName(req.query.name + "").then(data => {
+    getRandomMeal().then(data => {
         console.log(data);
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -65,7 +65,6 @@ function getRandomMeal() {
         return data;
     });
 }
-
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });

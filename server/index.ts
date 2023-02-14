@@ -11,39 +11,39 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.get('/categories', (req: Request, res: Response) => {
-    getCategories().then(data => {
-        console.log(data);
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.json(data);
-    });
+  getCategories().then(data => {
+    console.log(data);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.json(data);
+  });
 })
 
 app.get('/mealByName', (req: Request, res: Response) => {
-  getMealByName(req.query.name+"").then(data => {
-      console.log(data);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-      res.json(data);
+  getMealByName(req.query.name + "").then(data => {
+    console.log(data);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.json(data);
   });
 })
 
 app.get('/randomMeal', (req: Request, res: Response) => {
-  getMealByName(req.query.name+"").then(data => {
-      console.log(data);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-      res.json(data);
+  getRandomMeal().then(data => {
+    console.log(data);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.json(data);
   });
 })
 
 async function getCategories(): Promise<any> {
-    const response = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
-    const data = await response.json();
-    return data;
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
+  const data = await response.json();
+  return data;
 }
 
-async function getMealByName(name : string): Promise<any> {
+async function getMealByName(name: string): Promise<any> {
   const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=' + name);
   const data = await response.json();
   return data;
