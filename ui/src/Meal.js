@@ -7,8 +7,6 @@ export default function Meal({ meal }) {
             <img src={meal.strMealThumb} width="460" height="345"></img>
             <br />
         </div>
-
-
     )
 
 

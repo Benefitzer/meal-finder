@@ -6,5 +6,6 @@ export default function MealList({ meals }) {
         meals.map(meal => {
             return <Meal meal={meal} />
         })
+
     )
 }
