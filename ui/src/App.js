@@ -40,12 +40,12 @@ function App() {
         fetch('http://localhost:8000/mealByName?name=' + searchString)
             .then(res => res.json().then(data => {
                 if (data.meals != null) {
+                    console.log(data.meals)
                     setCurrentMeals(data.meals)
                 } else {
                     const meals = [];
                     setCurrentMeals(meals)
                 }
-
             }))
 
         return currentMeals;

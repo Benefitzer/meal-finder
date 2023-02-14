@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function Meal({ meal }) {
+
     return (
         <div>
             <h4 id={meal.idMeal}>{meal.strMeal}</h4>
@@ -8,8 +9,5 @@ export default function Meal({ meal }) {
             <br />
         </div>
 
-
     )
-
-
 }
