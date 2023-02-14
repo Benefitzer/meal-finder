@@ -20,4 +20,11 @@ describe('ui test', () => {
         cy.wait(3000)
         cy.get('select[id=selectCategory]').select('Lamb')
     })
+
+    it('input meal',() => {
+        cy.visit('http://localhost:3000')
+        cy.get('input[id=searchMeal]').type('Sushi')
+        cy.wait(2000)
+        cy.get('h4[id=53065]').should('have.text', "Sushi")
+    })
 })
