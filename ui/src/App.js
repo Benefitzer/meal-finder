@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import CategoryList from "./CategoryList";
 import CategoryDescription from "./CategoryDescription";
-import Meal from "./Meal";
+import MealList from "./MealList";
 import { useEffect, useState } from 'react';
 
 function App() {
     const [categories, setCategories] = useState([]);
     const [currentCategory, setCurrentCategory] = useState([]);
     let [categoryDesc] = useState([]);
-    let [currentMeal] = useState([]);
+    let [currentMeals, setCurrentMeals] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:8000/categories')
@@ -17,6 +17,10 @@ function App() {
                 setCategories(data.categories)
                 setCurrentCategory(data.categories[0].strCategoryDescription)
                 console.log(data.categories[0])
+            }))
+        fetch('http://localhost:8000/mealByName?name=' + "")
+            .then(res => res.json().then(data => {
+                setCurrentMeals(data.meals)
             }))
     }, []);
 
@@ -28,6 +32,7 @@ function App() {
         console.log(currentCategory)
         return currentCategory;
     }
+
     function searchForMeal(e) {
         console.log(e.target.value + ' ' + JSON.stringify(e.target.value))
         let searchString = e.target.value;
@@ -43,7 +48,7 @@ function App() {
                 }
             }))
 
-        return currentMeal;
+        return currentMeals;
     }
 
     // console.log(categories);
@@ -56,8 +61,10 @@ function App() {
                 id={"selectCategory"}><CategoryList categories={categories} /></select>
             <CategoryDescription category={currentCategory} />
 
+            <h3>Search a Meal:</h3>
             <input id="searchMeal" type="text" onChange={(e) => searchForMeal(e)}></input>
-            <Meal meal={currentMeal}></Meal>
+            <br />
+            <MealList meals={currentMeals} />
         </div>
     );
 
