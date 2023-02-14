@@ -16,6 +16,7 @@ describe('ui test', () => {
 
     it('select-box select', () =>{
         cy.visit('http://localhost:3000')
+        cy.wait(2000)
         cy.get('select[id=selectCategory]').select('Chicken')
         cy.wait(3000)
         cy.get('select[id=selectCategory]').select('Lamb')
@@ -24,7 +25,12 @@ describe('ui test', () => {
     it('input meal',() => {
         cy.visit('http://localhost:3000')
         cy.get('input[id=searchMeal]').type('Sushi')
-        cy.wait(2000)
+        cy.wait(4000)
         cy.get('h4[id=53065]').should('have.text', "Sushi")
+        cy.wait(4000)
+        cy.get('input[id=searchMeal]').type('Garbage')
+        cy.get('h4').should('not.exist')
     })
+
+
 })
